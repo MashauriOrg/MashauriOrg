@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mashauri — The Venture Education Platform for University Incubators</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+
+/* ===== TOKENS ===== */
+:root {
+  --red:        #cd1d31;
+  --red-dark:   #a8182a;
+  --red-deeper: #8a1222;
+  --red-light:  #fdf0f1;
+  --red-mid:    #f9d4d8;
+  --dark:       #111827;
+  --dark-soft:  #1f2937;
+  --gray-700:   #374151;
+  --gray-500:   #6b7280;
+  --gray-300:   #d1d5db;
+  --gray-200:   #e5e7eb;
+  --gray-100:   #f3f4f6;
+  --gray-50:    #f9fafb;
+  --white:      #ffffff;
+  --max:        1200px;
+  --radius:     12px;
+  --shadow-sm:  0 1px 4px rgba(0,0,0,0.06);
+  --shadow:     0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.12);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', system-ui, sans-serif; color: var(--dark); line-height: 1.65; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; }
+
+/* ===== UTILITY ===== */
+.max { max-width: var(--max); margin: 0 auto; }
+.section { padding: 100px 2rem; }
+.section-label {
+  display: inline-block; color: var(--red); font-weight: 700;
+  font-size: 0.78rem; letter-spacing: 1.8px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+h1 { font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.025em; }
+h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+.sub { color: var(--gray-500); font-size: 1.08rem; line-height: 1.75; }
+.mt-8  { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-40 { margin-top: 40px; }
+.mt-56 { margin-top: 56px; }
+.text-center { text-align: center; }
+.text-white { color: var(--white); }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 10px;
+  font-size: 0.97rem; font-weight: 700;
+  transition: all 0.2s; cursor: pointer;
+}
+.btn-red    { background: var(--red);      color: var(--white); }
+.btn-red:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(205,29,49,0.3); }
+.btn-ghost  { background: rgba(255,255,255,0.12); color: var(--white); border: 1.5px solid rgba(255,255,255,0.3); }
+.btn-ghost:hover { background: rgba(255,255,255,0.2); }
+.btn-outline { background: transparent; color: var(--red); border: 2px solid var(--red); }
+.btn-outline:hover { background: var(--red); color: var(--white); transform: translateY(-1px); }
+.btn-white  { background: var(--white); color: var(--red); }
+.btn-white:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-row.center { justify-content: center; }
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  transition: box-shadow 0.3s;
+}
+.nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: 0 2rem; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--red); color: var(--white);
+  font-weight: 900; font-size: 1.1rem; letter-spacing: 0.5px;
+  padding: 8px 18px; border-radius: 6px;
+  user-select: none;
+}
+.nav-links { display: flex; align-items: center; gap: 6px; }
+.nav-links a {
+  font-size: 0.88rem; font-weight: 500; color: var(--gray-700);
+  padding: 7px 12px; border-radius: 8px;
+  transition: all 0.15s;
+}
+.nav-links a:hover { color: var(--red); background: var(--red-light); }
+.nav-links a.active { color: var(--red); }
+.nav-cta {
+  background: var(--red) !important; color: var(--white) !important;
+  padding: 9px 20px !important; border-radius: 8px;
+  font-weight: 700 !important; margin-left: 6px;
+}
+.nav-cta:hover { background: var(--red-dark) !important; }
+
+/* ===== SPOTLIGHT ===== */
+.spotlight {
+  margin-top: 72px;
+  background: linear-gradient(90deg, var(--red-light), var(--white));
+  border-bottom: 1px solid var(--red-mid);
+}
+.spotlight-inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: 14px 2rem;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.spotlight-badge {
+  background: var(--red); color: var(--white);
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 1px;
+  text-transform: uppercase; padding: 4px 12px; border-radius: 4px;
+  white-space: nowrap;
+}
+.spotlight-text { flex: 1; }
+.spotlight-text strong { font-size: 0.95rem; color: var(--dark); }
+.spotlight-text span  { font-size: 0.83rem; color: var(--gray-500); margin-left: 8px; }
+.spotlight-link {
+  background: var(--red); color: var(--white);
+  font-size: 0.83rem; font-weight: 700;
+  padding: 8px 18px; border-radius: 8px;
+  white-space: nowrap; transition: background 0.2s;
+}
+.spotlight-link:hover { background: var(--red-dark); }
+
+/* ===== HERO ===== */
+.hero {
+  background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1800&h=1000&fit=crop');
+  background-size: cover; background-position: center 30%;
+  position: relative; overflow: hidden;
+  padding: 140px 2rem 120px;
+  color: var(--white);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(17,24,39,0.91) 0%, rgba(30,30,55,0.84) 60%, rgba(168,24,42,0.45) 100%);
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 760px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(205,29,49,0.18);
+  border: 1px solid rgba(205,29,49,0.4);
+  border-radius: 50px; padding: 6px 16px;
+  font-size: 0.82rem; color: rgba(255,255,255,0.88);
+  margin-bottom: 24px;
+}
+.hero-eyebrow .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.8)} }
+.hero h1 { color: var(--white); margin-bottom: 20px; }
+.hero h1 .accent { color: #ff8a95; }
+.hero .sub { color: rgba(255,255,255,0.75); max-width: 580px; margin-bottom: 0; }
+.hero-ctas { margin-top: 36px; }
+.hero-stats {
+  display: flex; gap: 36px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.14);
+}
+.hero-stat-num  { font-size: 1.9rem; font-weight: 900; color: var(--white); display: block; }
+.hero-stat-label{ font-size: 0.82rem; color: rgba(255,255,255,0.58); margin-top: 2px; }
+
+/* ===== PHILOSOPHY ===== */
+.philosophy { background: var(--gray-50); }
+.philosophy-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+}
+.philosophy-text .section-label { color: var(--red); }
+.philosophy-text h2 { margin-bottom: 20px; }
+.philosophy-text p  { color: var(--gray-500); font-size: 1.02rem; line-height: 1.8; margin-bottom: 20px; }
+.pullquote {
+  background: var(--white);
+  border-left: 4px solid var(--red);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 20px;
+  font-style: italic; color: var(--gray-700); font-size: 1.05rem;
+  box-shadow: var(--shadow-sm);
+}
+.stats-card {
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-deeper) 100%);
+  border-radius: 20px; padding: 40px 36px;
+  color: var(--white); text-align: center;
+  position: relative; overflow: hidden;
+}
+.stats-card::after {
+  content: ''; position: absolute;
+  top: -60px; right: -60px; width: 240px; height: 240px;
+  background: rgba(255,255,255,0.07); border-radius: 50%;
+}
+.stats-card-headline { font-size: 3.6rem; font-weight: 900; line-height: 1; }
+.stats-card-sub { font-size: 1rem; opacity: 0.85; margin-top: 6px; }
+.stats-mini {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px;
+}
+.stat-mini-item {
+  background: rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 18px 12px; text-align: center;
+}
+.stat-mini-item .n { font-size: 1.8rem; font-weight: 900; }
+.stat-mini-item .l { font-size: 0.8rem; opacity: 0.75; margin-top: 2px; }
+
+/* ===== PLATFORM ===== */
+.platform { background: var(--white); }
+.platform-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.platform-features { display: flex; flex-direction: column; gap: 16px; }
+.pf-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px; padding: 20px;
+  transition: all 0.22s;
+}
+.pf-item:hover { border-color: var(--red); box-shadow: 0 4px 18px rgba(205,29,49,0.08); background: var(--white); }
+.pf-icon {
+  width: 48px; height: 48px; min-width: 48px;
+  background: var(--red-light); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+}
+.pf-item h4 { font-size: 0.97rem; font-weight: 700; margin-bottom: 4px; }
+.pf-item p  { font-size: 0.86rem; color: var(--gray-500); line-height: 1.6; }
+.platform-visual {
+  background: linear-gradient(135deg, var(--dark), var(--dark-soft));
+  border-radius: 20px; padding: 36px; color: var(--white);
+  position: relative; overflow: hidden;
+}
+.platform-visual::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(205,29,49,0.15);
+}
+.spiral-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--red); color: var(--white);
+  font-size: 0.78rem; font-weight: 700;
+  padding: 5px 12px; border-radius: 6px;
+  margin-bottom: 20px;
+}
+.platform-visual h3 { color: var(--white); font-size: 1.3rem; margin-bottom: 6px; }
+.platform-visual .desc { color: rgba(255,255,255,0.65); font-size: 0.9rem; margin-bottom: 28px; }
+.spiral-stages { display: flex; flex-direction: column; gap: 10px; }
+.spiral-stage {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 14px 16px;
+  transition: all 0.2s;
+}
+.spiral-stage:hover { background: rgba(205,29,49,0.25); border-color: rgba(205,29,49,0.4); }
+.stage-num {
+  width: 32px; height: 32px; min-width: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.85rem; color: var(--white);
+}
+.s1{background:#6366f1;} .s2{background:var(--red);} .s3{background:#0891b2;}
+.s4{background:#059669;} .s5{background:#f59e0b);}
+.s5{background:#f59e0b;}
+.stage-label { font-size: 0.9rem; font-weight: 600; }
+.stage-sub   { font-size: 0.78rem; color: rgba(255,255,255,0.58); }
+.arrow-right { margin-left: auto; opacity: 0.4; font-size: 0.9rem; }
+
+/* ===== PROGRAMMES ===== */
+.programmes { background: var(--gray-50); }
+.tab-row {
+  display: flex; justify-content: center; gap: 8px; margin-bottom: 48px;
+}
+.tab-btn {
+  padding: 10px 26px; border-radius: 10px;
+  font-size: 0.92rem; font-weight: 600; cursor: pointer;
+  border: 2px solid var(--gray-200); color: var(--gray-500);
+  background: var(--white); transition: all 0.2s;
+}
+.tab-btn.active { border-color: var(--red); color: var(--red); background: var(--red-light); }
+.tab-btn:hover  { border-color: var(--red); color: var(--red); }
+.prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.prog-grid.two-col { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin: 0 auto; }
+.prog-grid.hidden  { display: none; }
+.prog-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 16px; overflow: hidden;
+  transition: all 0.25s;
+}
+.prog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--red); }
+.prog-img {
+  height: 200px; overflow: hidden; position: relative;
+  background: var(--gray-100);
+}
+.prog-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s;
+  filter: grayscale(20%);
+}
+.prog-card:hover .prog-img img { transform: scale(1.05); filter: grayscale(0%); }
+.prog-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(205,29,49,0.15), rgba(17,24,39,0.45));
+  mix-blend-mode: multiply; transition: opacity 0.3s;
+}
+.prog-card:hover .prog-overlay { opacity: 0.3; }
+.prog-body { padding: 24px; }
+.prog-tag {
+  display: inline-block; background: var(--red-light); color: var(--red);
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 4px;
+  margin-bottom: 12px;
+}
+.prog-body h3 { margin-bottom: 8px; }
+.prog-body p  { color: var(--gray-500); font-size: 0.88rem; line-height: 1.65; }
+.prog-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--red); font-weight: 700; font-size: 0.88rem;
+  margin-top: 16px; transition: gap 0.2s;
+}
+.prog-link:hover { gap: 10px; }
+
+/* ===== PARTNERS ===== */
+.partners { background: var(--white); padding: 72px 2rem; }
+.partners h2 { font-size: 1.3rem; font-weight: 700; }
+.partners .sub { font-size: 0.92rem; margin-top: 4px; }
+.logo-row {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  margin-top: 36px;
+}
+.logo-pill {
+  background: var(--gray-50); border: 1px solid var(--gray-200);
+  padding: 10px 18px; border-radius: 8px;
+  font-size: 0.82rem; font-weight: 600; color: var(--gray-700);
+  transition: all 0.2s;
+}
+.logo-pill:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
+
+/* ===== TESTIMONIALS ===== */
+.testimonials { background: var(--gray-50); }
+.t-scroll {
+  display: flex; gap: 16px; overflow-x: auto;
+  padding-bottom: 12px; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; scrollbar-color: var(--gray-300) var(--gray-100);
+}
+.t-card {
+  min-width: 340px; max-width: 340px; flex-shrink: 0;
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 16px; padding: 28px;
+  scroll-snap-align: start;
+  transition: all 0.25s;
+}
+.t-card:hover { box-shadow: var(--shadow); border-color: var(--red-mid); }
+.stars { color: #f59e0b; font-size: 0.95rem; margin-bottom: 14px; }
+.t-card blockquote { color: var(--gray-700); font-size: 0.92rem; line-height: 1.75; margin-bottom: 20px; }
+.t-author { display: flex; align-items: center; gap: 12px; }
+.t-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--red-light);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; color: var(--red); font-size: 0.9rem;
+}
+.t-name { font-weight: 700; font-size: 0.88rem; }
+.t-role { color: var(--gray-500); font-size: 0.78rem; }
+
+/* ===== MECFRAME ===== */
+.mecframe {
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-soft) 100%);
+  color: var(--white);
+}
+.mecframe-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.mecframe .section-label { color: #ff8a95; }
+.mecframe h2 { color: var(--white); margin-bottom: 16px; }
+.mecframe .sub { color: rgba(255,255,255,0.68); margin-bottom: 28px; }
+.pill-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+.comp-pill {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 7px 14px; border-radius: 8px;
+  font-size: 0.82rem; color: rgba(255,255,255,0.78);
+  transition: all 0.2s;
+}
+.comp-pill:hover { background: rgba(205,29,49,0.3); border-color: rgba(205,29,49,0.5); color: var(--white); }
+.mecframe-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+.mec-stat {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 24px 18px; text-align: center;
+}
+.mec-stat .n { font-size: 2.8rem; font-weight: 900; color: var(--red); }
+.mec-stat .l { font-size: 0.82rem; color: rgba(255,255,255,0.58); margin-top: 4px; }
+.mec-full {
+  grid-column: span 2;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 24px; text-align: center;
+}
+.mec-full p { color: rgba(255,255,255,0.6); font-size: 0.88rem; margin-bottom: 12px; }
+
+/* ===== PRICING ===== */
+.pricing { background: var(--white); }
+.pricing-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px;
+}
+.price-card {
+  border-radius: 18px; border: 2px solid var(--gray-200);
+  overflow: hidden; background: var(--white);
+  transition: all 0.25s; position: relative;
+}
+.price-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.price-card.featured { border-color: var(--red); }
+.price-card.featured::before {
+  content: 'Most popular';
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--red); color: var(--white);
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px;
+  padding: 4px 14px; border-radius: 20px;
+}
+.price-top { padding: 32px 28px 24px; border-bottom: 1px solid var(--gray-200); }
+.price-card.featured .price-top {
+  background: linear-gradient(135deg, var(--red), var(--red-deeper));
+}
+.price-card.featured .price-top * { color: var(--white) !important; }
+.price-card.featured .price-top .price-from,
+.price-card.featured .price-top .price-unit { opacity: 0.8; }
+.price-tier { font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); }
+.price-card.featured .price-tier { color: rgba(255,255,255,0.75) !important; }
+.price-top h3 { font-size: 1.35rem; margin: 8px 0 10px; }
+.price-desc { font-size: 0.88rem; color: var(--gray-500); margin-bottom: 20px; }
+.price-from { font-size: 0.8rem; color: var(--gray-500); }
+.price-num  { font-size: 2.4rem; font-weight: 900; color: var(--dark); }
+.price-unit { font-size: 0.83rem; color: var(--gray-500); }
+.price-body { padding: 24px 28px 28px; }
+.price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; }
+.price-features li .tick { color: var(--red); font-weight: 700; margin-top: 1px; }
+.price-body .btn { width: 100%; justify-content: center; font-size: 0.93rem; }
+
+/* ===== ARTICLES ===== */
+.articles { background: var(--gray-50); }
+.articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.article-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 16px; overflow: hidden; transition: all 0.25s;
+}
+.article-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.article-img {
+  height: 180px; overflow: hidden;
+}
+.article-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.article-card:hover .article-img img { transform: scale(1.05); }
+.article-body { padding: 22px; }
+.article-tag { color: var(--red); font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.article-body h3 { font-size: 1rem; margin: 8px 0 8px; line-height: 1.45; }
+.article-body p { color: var(--gray-500); font-size: 0.85rem; line-height: 1.6; }
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+  background: var(--red);
+  padding: 88px 2rem; text-align: center;
+}
+.cta-section h2 { color: var(--white); margin-bottom: 14px; }
+.cta-section p { color: rgba(255,255,255,0.85); font-size: 1.1rem; max-width: 520px; margin: 0 auto 32px; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--dark); color: rgba(255,255,255,0.6); padding: 60px 2rem 28px; }
+.footer-inner {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px; padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand p { font-size: 0.88rem; line-height: 1.75; margin-top: 14px; max-width: 260px; }
+.footer-brand .addr { margin-top: 16px; font-size: 0.83rem; line-height: 1.8; }
+.footer-col h5 {
+  color: var(--white); font-size: 0.8rem; font-weight: 800;
+  letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 14px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul a { font-size: 0.87rem; transition: color 0.2s; }
+.footer-col ul a:hover { color: var(--white); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 24px; font-size: 0.79rem;
+}
+.footer-bottom .tagline { color: rgba(255,255,255,0.35); font-style: italic; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 960px) {
+  .philosophy-grid, .platform-grid, .mecframe-inner { grid-template-columns: 1fr; gap: 40px; }
+  .prog-grid { grid-template-columns: 1fr 1fr; }
+  .pricing-cards { grid-template-columns: 1fr; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .articles-grid { grid-template-columns: 1fr 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .hero { padding: 110px 1.5rem 80px; }
+  .section { padding: 64px 1.5rem; }
+  .prog-grid, .prog-grid.two-col, .articles-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 24px; }
+  .t-card { min-width: 290px; max-width: 290px; }
+}
+
+/* ===== DESIGN NOTES (remove in production) ===== */
+.note {
+  background: #fffbeb; border: 1.5px dashed #f59e0b;
+  padding: 12px 20px; border-radius: 8px;
+  font-size: 0.82rem; color: #78350f;
+  margin: 0 2rem 0;
+}
+.note strong { color: #451a03; }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <span class="nav-logo">Mashauri</span>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#programmes">Programmes</a>
+      <a href="#competencies">MecFrame</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#articles">Articles</a>
+      <a href="https://mashauri-courses.org" target="_blank">Online Campus</a>
+      <a href="#demo" class="nav-cta">Book a Demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== SPOTLIGHT ===== -->
+<div class="spotlight">
+  <div class="spotlight-inner">
+    <span class="spotlight-badge">Now enrolling</span>
+    <div class="spotlight-text">
+      <strong>Incubator Managers Development Program</strong>
+      <span>Build operational excellence in your incubator — open enrolment 2026</span>
+    </div>
+    <a href="#programmes" class="spotlight-link">Learn More →</a>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner max" style="max-width:760px;">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      The Venture Education Platform for University Incubators
+    </div>
+    <h1>Graduates who <span class="accent">Innovate.</span><br>Graduates who <span class="accent">Impact.</span></h1>
+    <p class="sub" style="color:rgba(255,255,255,0.75);">Mashauri gives university incubator and innovation managers the structured platform, proven methodology, and ready-to-run programmes to deliver experiential entrepreneurship education that creates real founders.</p>
+    <div class="btn-row hero-ctas">
+      <a href="#demo" class="btn btn-red">Book a Demo →</a>
+      <a href="#platform" class="btn btn-ghost">Explore the Platform</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-num">13+</span>
+        <span class="hero-stat-label">Years of delivery</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">20+</span>
+        <span class="hero-stat-label">University partners</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">1,000s</span>
+        <span class="hero-stat-label">Students impacted</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">15+</span>
+        <span class="hero-stat-label">Countries reached</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PHILOSOPHY ===== -->
+<section class="section philosophy">
+  <div class="philosophy-grid max">
+    <div class="philosophy-text">
+      <div class="section-label">Our Philosophy</div>
+      <h2>You can't learn to swim in a library.</h2>
+      <p>And you can't learn to be an entrepreneur in a classroom. That's why every Mashauri programme is built on experiential, action-based learning — real ventures, real skills, real outcomes.</p>
+      <p>We've spent 13 years figuring out what works. Our Startup Spiral methodology, our MecFrame competency framework, and our programme designs are the result of working with thousands of students across four continents. We built the platform so your incubator can benefit from all of it.</p>
+      <div class="pullquote">"Today's students. Tomorrow's entrepreneurs."</div>
+    </div>
+    <div class="stats-card">
+      <div class="stats-card-headline">13+</div>
+      <div class="stats-card-sub">Years delivering experiential entrepreneurship education</div>
+      <div class="stats-mini">
+        <div class="stat-mini-item"><div class="n">20+</div><div class="l">University partners</div></div>
+        <div class="stat-mini-item"><div class="n">1000s</div><div class="l">Students impacted</div></div>
+        <div class="stat-mini-item"><div class="n">15+</div><div class="l">Countries reached</div></div>
+        <div class="stat-mini-item"><div class="n">6</div><div class="l">Programme formats</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLATFORM ===== -->
+<section class="section platform" id="platform">
+  <div class="platform-grid max">
+
+    <div>
+      <div class="section-label">The Platform</div>
+      <h2>Everything your incubator needs to run world-class venture programmes</h2>
+      <p class="sub mt-16">Mashauri isn't a generic learning platform. It's a venture creation system — built specifically for university incubators and innovation managers who want to deliver programmes that produce real founders, not just participants.</p>
+      <div class="platform-features mt-40">
+        <div class="pf-item">
+          <div class="pf-icon">🌀</div>
+          <div>
+            <h4>Startup Spiral Methodology</h4>
+            <p>A proven, iterative venture development framework embedded throughout — from ideation to launch. Built on lean startup, design thinking, and 13 years of real delivery experience.</p>
+          </div>
+        </div>
+        <div class="pf-item">
+          <div class="pf-icon">👥</div>
+          <div>
+            <h4>Cohort &amp; Programme Management</h4>
+            <p>Launch and manage venture programmes with student cohorts. Run across a single faculty or institution-wide, online, blended, or in-person.</p>
+          </div>
+        </div>
+        <div class="pf-item">
+          <div class="pf-icon">🛠️</div>
+          <div>
+            <h4>Venture Tools &amp; Templates</h4>
+            <p>A full library of canvases, interview guides, experiment frameworks, and business model tools — ready for students at every stage of the Spiral.</p>
+          </div>
+        </div>
+        <div class="pf-item">
+          <div class="pf-icon">📊</div>
+          <div>
+            <h4>Impact Dashboard &amp; Reporting</h4>
+            <p>Track ventures created, validation milestones, prototypes, and launches. Report measurable outcomes to leadership and funders with confidence.</p>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row mt-40">
+        <a href="#demo" class="btn btn-red">Book a Platform Demo →</a>
+        <a href="#pricing" class="btn btn-outline">View Pricing</a>
+      </div>
+    </div>
+
+    <div class="platform-visual">
+      <div class="spiral-badge">🌀 The Startup Spiral</div>
+      <h3>The Venture Pathway</h3>
+      <p class="desc">Five structured stages from first idea to venture launch</p>
+      <div class="spiral-stages">
+        <div class="spiral-stage">
+          <div class="stage-num s1">1</div>
+          <div>
+            <div class="stage-label">Venture Ideation</div>
+            <div class="stage-sub">Discover and define compelling opportunities</div>
+          </div>
+          <div class="arrow-right">→</div>
+        </div>
+        <div class="spiral-stage">
+          <div class="stage-num s2">2</div>
+          <div>
+            <div class="stage-label">Problem Validation</div>
+            <div class="stage-sub">Test with real customers using lean methods</div>
+          </div>
+          <div class="arrow-right">→</div>
+        </div>
+        <div class="spiral-stage">
+          <div class="stage-num s3">3</div>
+          <div>
+            <div class="stage-label">Solution Validation</div>
+            <div class="stage-sub">Prototype, test, and iterate rapidly</div>
+          </div>
+          <div class="arrow-right">→</div>
+        </div>
+        <div class="spiral-stage">
+          <div class="stage-num s4">4</div>
+          <div>
+            <div class="stage-label">Business Model Design</div>
+            <div class="stage-sub">Build a viable, scalable startup model</div>
+          </div>
+          <div class="arrow-right">→</div>
+        </div>
+        <div class="spiral-stage">
+          <div class="stage-num s5">5</div>
+          <div>
+            <div class="stage-label">Venture Launch</div>
+            <div class="stage-sub">Launch to first customers and investors</div>
+          </div>
+          <div class="arrow-right">→</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== PROGRAMMES ===== -->
+<section class="section programmes" id="programmes">
+  <div class="max">
+    <div class="section-header text-center" style="max-width:640px;margin:0 auto 48px;">
+      <div class="section-label">Programmes</div>
+      <h2>Action-based learning for every audience</h2>
+      <p class="sub mt-16">Whether you're delivering to student cohorts or developing your incubator team — we have a programme for you.</p>
+    </div>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="showTab('inst')">For Institutions</button>
+      <button class="tab-btn" onclick="showTab('ind')">For Individuals</button>
+    </div>
+
+    <!-- Institution programmes -->
+    <div class="prog-grid" id="grid-inst">
+      <div class="prog-card">
+        <div class="prog-img">
+          <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=600&h=400&fit=crop" alt="Students in a venture programme" />
+          <div class="prog-overlay"></div>
+        </div>
+        <div class="prog-body">
+          <span class="prog-tag">Institutions · 8 weeks</span>
+          <h3>Virtual Incubator</h3>
+          <p>Guide a cohort of students through a hands-on venture-building process. Fully online, mentor-supported, structured around the Startup Spiral — culminating in a live pitching session.</p>
+          <a href="#" class="prog-link">Download brochure →</a>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-img">
+          <img src="https://images.unsplash.com/photo-1552581234-26160f608093?w=600&h=400&fit=crop" alt="Bootcamp workshop" />
+          <div class="prog-overlay"></div>
+        </div>
+        <div class="prog-body">
+          <span class="prog-tag">Institutions · 3–5 days</span>
+          <h3>Bootcamps</h3>
+          <p>Concentrated, activity-driven programmes including scientist bootcamps, IP-athons, and sector-specific entrepreneurship immersions. Run in-person or online.</p>
+          <a href="#" class="prog-link">Download brochure →</a>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-img">
+          <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=600&h=400&fit=crop" alt="Elective course classroom" />
+          <div class="prog-overlay"></div>
+        </div>
+        <div class="prog-body">
+          <span class="prog-tag">Institutions · Semester</span>
+          <h3>Elective Courses</h3>
+          <p>Embed experiential entrepreneurship directly into your curriculum with credit-bearing courses — fully mapped to the MecFrame competency framework.</p>
+          <a href="#" class="prog-link">Learn more →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Individual programmes -->
+    <div class="prog-grid two-col hidden" id="grid-ind">
+      <div class="prog-card">
+        <div class="prog-img">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop" alt="Incubator managers session" />
+          <div class="prog-overlay"></div>
+        </div>
+        <div class="prog-body">
+          <span class="prog-tag">Individuals · Now enrolling</span>
+          <h3>Incubator Managers Development Program</h3>
+          <p>Build operational excellence in running a university incubator or accelerator. Designed for managers who want to maximise startup impact and programme quality.</p>
+          <a href="#" class="prog-link">Find out more →</a>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-img">
+          <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=400&fit=crop" alt="Startup founder launching" />
+          <div class="prog-overlay"></div>
+        </div>
+        <div class="prog-body">
+          <span class="prog-tag">Individuals · Ongoing</span>
+          <h3>Startup Support Programs</h3>
+          <p>Programmes like Launch-in-Four that take aspiring entrepreneurs through a structured process to validate, build, and launch their ventures — from idea to first customers.</p>
+          <a href="#" class="prog-link">View programmes →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARTNERS ===== -->
+<section class="partners">
+  <div class="max text-center">
+    <h2>Trusted by universities and institutions worldwide</h2>
+    <p class="sub mt-8">A few of the universities and organisations where our students learn</p>
+    <div class="logo-row">
+      <span class="logo-pill">Ashoka University</span>
+      <span class="logo-pill">University of Johannesburg</span>
+      <span class="logo-pill">Universität Tübingen</span>
+      <span class="logo-pill">CEU San Pablo</span>
+      <span class="logo-pill">DUT</span>
+      <span class="logo-pill">University of Venda</span>
+      <span class="logo-pill">MTU</span>
+      <span class="logo-pill">UAM Madrid</span>
+      <span class="logo-pill">CNAG</span>
+      <span class="logo-pill">CRG</span>
+      <span class="logo-pill">University of Wolverhampton</span>
+      <span class="logo-pill">Wits University</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section testimonials">
+  <div class="max">
+    <div class="section-header text-center" style="max-width:600px;margin:0 auto 48px;">
+      <div class="section-label">Wall of Fame</div>
+      <h2>What our students are saying</h2>
+      <p class="sub mt-16">Hear from the graduates, founders, and innovators who've been through our programmes.</p>
+    </div>
+    <div class="t-scroll">
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"What makes Mashauri and Simon Gifford truly stand out is their ability to meet you right where you are. He demonstrates both professional and emotional intelligence through customised training and positive reinforcement."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">ST</div>
+          <div><div class="t-name">Susanne Trillingsgaard Veno</div><div class="t-role">Entrepreneur</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"This course was fantastic — there is so much value to be gained here. You get exposed to great thinkers, great tools, and a great platform for learning. Definitely worth a go!"</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">AB</div>
+          <div><div class="t-name">Alexander Barclay</div><div class="t-role">Programme participant</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"I think if all PhD students could have this kind of summer school we would have many more entrepreneurs. I enjoyed interacting with different people from different backgrounds."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">FC</div>
+          <div><div class="t-name">Fernando Caixeta Lisboa</div><div class="t-role">PhD Student</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"CRG bio business school was an incredibly motivating and effective learning experience, thanks to its dynamic and engaging educational process, experienced guest speakers, and interaction with real world venture capitalists."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">AF</div>
+          <div><div class="t-name">Anna Fefilova</div><div class="t-role">BBS participant</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Mashauri has been very impactful to Findamentals. The sessions brought structure into how we can turn the idea into a viable business. We were able to craft and get a paid pilot project rolling."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">ED</div>
+          <div><div class="t-name">Elijah Dan</div><div class="t-role">Founder, Findamentals</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"A practical and inspirational programme led by an inspiring entrepreneur — for anyone having great ideas that are waiting to turn into reality!"</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">GP</div>
+          <div><div class="t-name">Gabriele Picarella</div><div class="t-role">Programme participant</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MECFRAME ===== -->
+<section class="section mecframe" id="competencies">
+  <div class="mecframe-inner max">
+    <div class="mecframe-text">
+      <div class="section-label">MecFrame</div>
+      <h2>The Mashauri Entrepreneurial Competencies Framework</h2>
+      <p class="sub">Our programmes are built on a research-backed competency framework covering 15 key entrepreneurial skills. This framework shapes curriculum design, guides assessment, and helps you measure and demonstrate student development over time.</p>
+      <div class="pill-cloud mt-24">
+        <span class="comp-pill">Opportunity ID</span>
+        <span class="comp-pill">Risk Management</span>
+        <span class="comp-pill">Creativity</span>
+        <span class="comp-pill">Customer Focus</span>
+        <span class="comp-pill">Venture Ideation</span>
+        <span class="comp-pill">Networking</span>
+        <span class="comp-pill">Financial Capability</span>
+        <span class="comp-pill">Self-Efficacy</span>
+        <span class="comp-pill">Problem Solving</span>
+        <span class="comp-pill">Ethics &amp; Sustainability</span>
+        <span class="comp-pill">Resilience</span>
+        <span class="comp-pill">Leadership</span>
+      </div>
+      <div class="btn-row mt-40">
+        <a href="#" class="btn btn-white">Download the Framework →</a>
+      </div>
+    </div>
+    <div class="mecframe-stats">
+      <div class="mec-stat"><div class="n">15</div><div class="l">Core competencies</div></div>
+      <div class="mec-stat"><div class="n">60+</div><div class="l">Sub-competencies</div></div>
+      <div class="mec-full">
+        <p>The framework is embedded in every Mashauri programme — giving you a consistent language for entrepreneurship development across your institution.</p>
+        <div class="pill-cloud" style="justify-content:center;">
+          <span class="comp-pill">Research-backed</span>
+          <span class="comp-pill">Assessment-ready</span>
+          <span class="comp-pill">Cross-faculty</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="section pricing" id="pricing">
+  <div class="max">
+    <div class="text-center" style="max-width:620px;margin:0 auto;">
+      <div class="section-label">Pricing</div>
+      <h2>Simple, transparent pricing for universities</h2>
+      <p class="sub mt-16">Start with a pilot programme and scale to an institution-wide platform. No hidden fees, no ambiguity.</p>
+    </div>
+    <div class="pricing-cards">
+
+      <div class="price-card">
+        <div class="price-top">
+          <div class="price-tier">Pilot Programme</div>
+          <h3>Run Your First Venture Programme</h3>
+          <p class="price-desc">Test Mashauri with a single cohort before committing. Full platform access for programme duration.</p>
+          <div class="price-from">From</div>
+          <div class="price-num">£2,500</div>
+          <div class="price-unit">per cohort</div>
+        </div>
+        <div class="price-body">
+          <ul class="price-features">
+            <li><span class="tick">✓</span><span>One programme template of your choice</span></li>
+            <li><span class="tick">✓</span><span>Up to 30 students</span></li>
+            <li><span class="tick">✓</span><span>Full platform access for cohort duration</span></li>
+            <li><span class="tick">✓</span><span>Onboarding &amp; facilitation support</span></li>
+            <li><span class="tick">✓</span><span>Programme impact report</span></li>
+          </ul>
+          <a href="#demo" class="btn btn-outline">Get Started</a>
+        </div>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-top">
+          <div class="price-tier">Platform Licence</div>
+          <h3>Run Multiple Programmes Year-Round</h3>
+          <p class="price-desc">Full access to the Startup Spiral curriculum and all programme templates. Unlimited cohorts, all year.</p>
+          <div class="price-from">From</div>
+          <div class="price-num">£7,500</div>
+          <div class="price-unit">per year</div>
+        </div>
+        <div class="price-body">
+          <ul class="price-features">
+            <li><span class="tick">✓</span><span>All programme templates</span></li>
+            <li><span class="tick">✓</span><span>Unlimited cohorts</span></li>
+            <li><span class="tick">✓</span><span>Full Startup Spiral curriculum</span></li>
+            <li><span class="tick">✓</span><span>Cohort management tools</span></li>
+            <li><span class="tick">✓</span><span>Impact reporting dashboard</span></li>
+            <li><span class="tick">✓</span><span>Dedicated customer success support</span></li>
+          </ul>
+          <a href="#demo" class="btn btn-red">Book a Demo</a>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div class="price-top">
+          <div class="price-tier">Enterprise Partnership</div>
+          <h3>University-Wide Venture Platform</h3>
+          <p class="price-desc">A co-branded Mashauri platform for your entire institution, with custom curriculum and a dedicated strategic partnership.</p>
+          <div class="price-from">From</div>
+          <div class="price-num">£25,000</div>
+          <div class="price-unit">per year</div>
+        </div>
+        <div class="price-body">
+          <ul class="price-features">
+            <li><span class="tick">✓</span><span>Co-branded platform for your institution</span></li>
+            <li><span class="tick">✓</span><span>Unlimited programmes &amp; cohorts</span></li>
+            <li><span class="tick">✓</span><span>Custom curriculum development</span></li>
+            <li><span class="tick">✓</span><span>Cross-faculty programme support</span></li>
+            <li><span class="tick">✓</span><span>Full impact reporting &amp; analytics</span></li>
+            <li><span class="tick">✓</span><span>Strategic partnership with Mashauri team</span></li>
+          </ul>
+          <a href="#demo" class="btn btn-outline">Talk to Us</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTICLES ===== -->
+<section class="section articles" id="articles">
+  <div class="max">
+    <div class="text-center" style="max-width:580px;margin:0 auto 48px;">
+      <div class="section-label">Insights</div>
+      <h2>Latest from the Mashauri blog</h2>
+      <p class="sub mt-16">Thought leadership on entrepreneurial education, incubation, and building the next generation of innovators.</p>
+    </div>
+    <div class="articles-grid">
+      <div class="article-card">
+        <div class="article-img">
+          <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=500&h=300&fit=crop" alt="Incubation success article" />
+        </div>
+        <div class="article-body">
+          <div class="article-tag">Featured</div>
+          <h3>What Really Drives Entrepreneur Incubation Success?</h3>
+          <p>Key factors that separate high-performing incubation programmes from the rest.</p>
+        </div>
+      </div>
+      <div class="article-card">
+        <div class="article-img">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&h=300&fit=crop" alt="Forging the founder article" />
+        </div>
+        <div class="article-body">
+          <div class="article-tag">Featured</div>
+          <h3>Forging the Founder</h3>
+          <p>How experiential education creates resilient, capable entrepreneurs.</p>
+        </div>
+      </div>
+      <div class="article-card">
+        <div class="article-img">
+          <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=500&h=300&fit=crop" alt="Science startups article" />
+        </div>
+        <div class="article-body">
+          <div class="article-tag">Featured</div>
+          <h3>Why Science Startups Fail More Than Consumer Startups</h3>
+          <p>Understanding the unique challenges deep-tech founders face.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-40">
+      <a href="#" class="btn btn-outline">View All Articles →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section" id="demo">
+  <div class="max">
+    <h2>Ready to transform your students into founders?</h2>
+    <p>Book a 30-minute demo and see how Mashauri can bring structured, measurable venture education to your incubator.</p>
+    <a href="mailto:info@mashauri.org" class="btn btn-white">Book a Demo →</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner max">
+    <div class="footer-brand">
+      <span class="nav-logo" style="font-size:0.95rem;padding:7px 14px;">Mashauri</span>
+      <p>The platform for universities to offer experiential entrepreneurial education — producing real founders, not just participants.</p>
+      <div class="addr">
+        61 High Street, Chobham, Surrey, UK<br>
+        <a href="mailto:info@mashauri.org" style="color:rgba(255,255,255,0.6);">info@mashauri.org</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Platform</h5>
+      <ul>
+        <li><a href="#platform">Platform Overview</a></li>
+        <li><a href="#platform">Startup Spiral</a></li>
+        <li><a href="#competencies">MecFrame</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Programmes</h5>
+      <ul>
+        <li><a href="#programmes">Virtual Incubator</a></li>
+        <li><a href="#programmes">Bootcamps</a></li>
+        <li><a href="#programmes">Elective Courses</a></li>
+        <li><a href="#programmes">IMDP</a></li>
+        <li><a href="#programmes">Startup Support</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="https://mashauri-courses.org" target="_blank">Online Campus</a></li>
+        <li><a href="#demo">Book a Demo</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom max">
+    <span>© 2026 Mashauri Limited. All rights reserved.</span>
+    <span class="tagline">Today's students. Tomorrow's entrepreneurs.</span>
+  </div>
+</footer>
+
+<!-- ===== JS ===== -->
+<script>
+  // Nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Programme tabs
+  function showTab(id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#grid-inst, #grid-ind').forEach(g => g.classList.add('hidden'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('grid-' + id).classList.remove('hidden');
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
