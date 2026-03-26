@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mashauri Virtual Incubator — Leader & Student Views</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red:#cd1d31; --red-dark:#a8182a; --red-light:#fdf0f1; --red-mid:#f9d4d8;
+      --dark:#111827; --gray-700:#374151; --gray-500:#6b7280; --gray-200:#e5e7eb; --gray-50:#f9fafb; --white:#fff;
+      --max:1120px; --radius:14px; --shadow:0 6px 24px rgba(0,0,0,0.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;color:var(--dark);line-height:1.7;background:var(--white)}
+    a{text-decoration:none;color:inherit}
+    .max{max-width:var(--max);margin:0 auto;padding:0 2rem}
+    .section{padding:70px 0}
+    .sub{color:var(--gray-500)}
+    h1{font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.12;margin:18px 0 14px}
+    h2{font-size:clamp(1.45rem,3.2vw,2.25rem);line-height:1.2;margin-bottom:14px}
+    h3{font-size:1.08rem;line-height:1.3;margin-bottom:7px}
+
+    .nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--gray-200)}
+    .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{background:var(--red);color:#fff;padding:8px 16px;border-radius:6px;font-weight:900}
+    .nav-links{display:flex;gap:16px;font-size:.9rem;color:var(--gray-700)}
+    .nav-links a:hover{color:var(--red)}
+
+    .hero{padding:90px 0 70px;background:linear-gradient(120deg,#1f2937 10%,#3a2130 55%,#8a1222 100%);color:#fff}
+    .eyebrow{display:inline-block;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.26);padding:6px 12px;border-radius:999px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase}
+    .hero p{max-width:860px;color:rgba(255,255,255,.88)}
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+    .btn{display:inline-flex;align-items:center;padding:12px 20px;border-radius:10px;font-weight:700;font-size:.94rem;border:none;cursor:pointer}
+    .btn-red{background:var(--red);color:#fff}
+    .btn-red:hover{background:var(--red-dark)}
+    .btn-ghost{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.45);color:#fff}
+
+    .switch-wrap{padding:20px 0;border-bottom:1px solid var(--gray-200);background:#fff;position:sticky;top:72px;z-index:90}
+    .switch{display:inline-flex;padding:4px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:12px;gap:4px}
+    .switch button{padding:9px 14px;border-radius:9px;border:none;background:transparent;color:var(--gray-700);font-weight:700;cursor:pointer}
+    .switch button.active{background:var(--red);color:#fff}
+
+    .view{display:none}
+    .view.active{display:block}
+
+    .grid-2{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
+    .card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+
+    .steps{display:grid;gap:11px}
+    .step{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px;border:1px solid var(--gray-200);border-radius:12px;background:#fff}
+    .num{width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .kpi{background:var(--red-light);border:1px solid var(--red-mid);padding:14px;border-radius:12px}
+    .kpi strong{display:block;color:var(--red);font-size:1.32rem;line-height:1.1}
+
+    .faq{display:grid;gap:12px}
+    .faq-item{border:1px solid var(--gray-200);background:#fff;border-radius:12px;padding:15px}
+
+    .touch-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .touch{border:1px solid var(--gray-200);border-radius:12px;padding:14px;background:var(--gray-50)}
+    .icon{width:34px;height:34px;border-radius:8px;background:var(--red-light);color:var(--red);font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+
+    .vignette{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:center}
+    .vignette img{width:100%;height:220px;object-fit:cover;border-radius:12px}
+    .cadence{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .pill{background:#fff;border:1px solid var(--gray-200);padding:6px 10px;border-radius:999px;font-size:.83rem;color:var(--gray-700)}
+
+    .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .quote{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:14px}
+
+    .cta{background:var(--red);color:#fff;border-radius:16px;padding:34px 18px;text-align:center}
+    .cta p{color:rgba(255,255,255,.88);max-width:760px;margin:7px auto 0}
+
+    footer{padding:34px 0 44px;color:var(--gray-500);font-size:.92rem}
+
+    @media (max-width:980px){
+      .grid-2,.vignette{grid-template-columns:1fr}
+      .kpis{grid-template-columns:repeat(2,1fr)}
+      .touch-grid{grid-template-columns:repeat(2,1fr)}
+      .testimonials{grid-template-columns:1fr}
+      .nav-links{display:none}
+      .max{padding:0 1.2rem}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="max nav-inner">
+      <a class="nav-logo" href="index.html">MASHAURI</a>
+      <div class="nav-links">
+        <a href="index.html#programmes">All Programmes</a>
+        <a href="#toggle">Choose View</a>
+        <a href="#contact">Request a pilot</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="max">
+      <span class="eyebrow">Virtual Incubator Programmes</span>
+      <h1>Mashauri Virtual Incubator</h1>
+      <p>A cohort-based online incubator that blends bite-sized learning, mentor support, and AI-assisted feedback so students can validate problems, test solutions, and graduate with an evidence-backed business model in 4-week or 12-week tracks.</p>
+      <div class="btn-row">
+        <a class="btn btn-red" href="#contact">Request a pilot</a>
+        <a class="btn btn-ghost" href="#portfolio">View student portfolio sample</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="switch-wrap" id="toggle">
+    <div class="max">
+      <div class="switch" role="tablist" aria-label="View switcher">
+        <button id="leaderBtn" class="active" role="tab" aria-selected="true" aria-controls="leaderView">Leader view</button>
+        <button id="studentBtn" role="tab" aria-selected="false" aria-controls="studentView">Student view</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div id="leaderView" class="view active" role="tabpanel" aria-labelledby="leaderBtn">
+      <section class="section">
+        <div class="max grid-2">
+          <div>
+            <h2>What the Virtual Incubator is</h2>
+            <p class="sub">The Mashauri Virtual Incubator is a university-facing, cohort-based programme that moves students from early ideas to market-tested ventures. Institutions can deploy a focused 4-week Problem–Solution Validation stream or a 12-week Business Model Design & Validation track.</p>
+            <p class="sub" style="margin-top:10px;">Delivery combines weekly modules, practical assignments, webinars, mentor support, and AI-assisted feedback. Leaders receive reporting on engagement, progression, completion, and at-risk students, with clear artefacts to evaluate programme impact.</p>
+          </div>
+          <aside class="card">
+            <h3>Programme outcomes at a glance</h3>
+            <div class="kpis" style="grid-template-columns:repeat(2,1fr);margin-top:10px;">
+              <div class="kpi"><strong>4 weeks</strong><span>Problem–Solution validation</span></div>
+              <div class="kpi"><strong>12 weeks</strong><span>Business model design track</span></div>
+              <div class="kpi"><strong>4–6 hrs</strong><span>Weekly student commitment</span></div>
+              <div class="kpi"><strong>Weekly</strong><span>Leaderboards + reports</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--gray-50);border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);">
+        <div class="max">
+          <h2>How the leader workflow operates</h2>
+          <div class="steps" style="margin-top:12px;">
+            <div class="step"><div class="num">1</div><div><strong>Apply & select</strong><br/>Students apply via short forms; cohorts are selected to match institutional capacity and goals.</div></div>
+            <div class="step"><div class="num">2</div><div><strong>Onboarding & pre-work</strong><br/>Pre-pilot webinar and readiness checks align participant expectations and baseline skills.</div></div>
+            <div class="step"><div class="num">3</div><div><strong>Weekly modules</strong><br/>Micro-lessons, quizzes, assignments, and peer learning released in predictable weekly cycles.</div></div>
+            <div class="step"><div class="num">4</div><div><strong>Mentor + AI coaching</strong><br/>Mentor office hours plus AI rubric feedback improve quality and iteration speed.</div></div>
+            <div class="step"><div class="num">5</div><div><strong>Assessment & progression</strong><br/>Teams finish with validated models/pitches and receive recommendations for next programme pathways.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="max grid-2">
+          <div>
+            <h2>Leader KPIs & evidence pack</h2>
+            <div class="kpis" style="margin-top:10px;">
+              <div class="kpi"><strong>40</strong><span>Cohort size</span></div>
+              <div class="kpi"><strong>82%</strong><span>Completion rate</span></div>
+              <div class="kpi"><strong>4.8</strong><span>Avg hrs/week</span></div>
+              <div class="kpi"><strong>12</strong><span>Mentor hrs/team</span></div>
+            </div>
+            <p class="sub" style="margin-top:10px;">Avg hours/week target: 4–6 hrs. Empty state: “No data yet — run a pilot to populate metrics.”</p>
+            <div class="btn-row" id="portfolio" style="margin-top:14px;">
+              <a class="btn" style="background:var(--white);border:2px solid var(--red);color:var(--red);" href="#">Download sample portfolio</a>
+              <a class="btn" style="background:var(--white);border:2px solid var(--red);color:var(--red);" href="#contact">Request a pilot</a>
+            </div>
+          </div>
+          <div class="faq">
+            <article class="faq-item"><h3>Who is this for?</h3><p class="sub">Universities, innovation offices, and incubator centres that need scalable venture education with measurable outcomes.</p></article>
+            <article class="faq-item"><h3>How much university staff time is needed?</h3><p class="sub">A project manager/focal point usually coordinates recruitment and reporting while Mashauri supports day-to-day facilitation.</p></article>
+            <article class="faq-item"><h3>How is evidence captured?</h3><p class="sub">Each team builds an evidence trail: interview notes, experiments, scorecards, and final pitch materials.</p></article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="studentView" class="view" role="tabpanel" aria-labelledby="studentBtn">
+      <section class="section">
+        <div class="max">
+          <h2>A day in the life — student perspective</h2>
+          <div class="card vignette" style="margin-top:12px;">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&h=500&fit=crop" alt="Student working on laptop and taking notes during a virtual incubator session." />
+            <div>
+              <h3>“My day in the Mashauri incubator”</h3>
+              <p class="sub">I check the leaderboard and my weekly module, complete a short lesson and quiz, run customer interviews, upload notes to the project workspace, and use AI self-checks to improve evidence quality. I finish with assignment upload, peer feedback, and mentor/webinar support.</p>
+              <div class="cadence">
+                <span class="pill">Micro-lessons + quiz</span><span class="pill">Evidence capture</span><span class="pill">Mentor check-ins</span><span class="pill">Peer review</span><span class="pill">Dashboard check</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top:24px;">How students interact with the platform</h3>
+          <div class="touch-grid" style="margin-top:10px;">
+            <article class="touch"><div class="icon" aria-label="Platform">P</div><h3>Platform Home</h3><p class="sub">Weekly module content, quizzes, and clear deliverables.</p></article>
+            <article class="touch"><div class="icon" aria-label="Workspace">W</div><h3>Project Workspace</h3><p class="sub">A log for interviews, experiments, prototypes, and submissions.</p></article>
+            <article class="touch"><div class="icon" aria-label="AI feedback">AI</div><h3>AI Feedback</h3><p class="sub">Rubrics and reflection prompts that speed iteration.</p></article>
+            <article class="touch"><div class="icon" aria-label="Mentor">M</div><h3>Mentor Sessions</h3><p class="sub">Office hours, webinars, and networking sessions.</p></article>
+            <article class="touch"><div class="icon" aria-label="Dashboards">D</div><h3>Dashboards</h3><p class="sub">Progress and leaderboard visibility across the cohort.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--gray-50);border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);">
+        <div class="max">
+          <h2>Validation workflow & student deliverables</h2>
+          <div class="steps" style="margin-top:12px;">
+            <div class="step"><div class="num">1</div><div><strong>Week 1 — Problem framing</strong><br/>Deliverable: problem statement, customer hypotheses, five interview commitments.</div></div>
+            <div class="step"><div class="num">2</div><div><strong>Week 2 — Customer discovery</strong><br/>Deliverable: interview synthesis, quotes, AI-assisted validation score.</div></div>
+            <div class="step"><div class="num">3</div><div><strong>Week 3 — Early solution tests</strong><br/>Deliverable: lightweight prototype experiments and measured metrics.</div></div>
+            <div class="step"><div class="num">4</div><div><strong>Week 4 (or weeks 4–12)</strong><br/>Deliverable: evidence-backed model and three-risk register.</div></div>
+            <div class="step"><div class="num">5</div><div><strong>Final pitch</strong><br/>Deliverable: pitch deck, recommendation pathway, certificate, and follow-up plan.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="max">
+          <h2>Student, mentor, and project manager voices</h2>
+          <div class="testimonials" style="margin-top:10px;">
+            <article class="quote"><h3>Student founder</h3><p class="sub">“The weekly rhythm helped me test assumptions quickly and end with real evidence.”</p></article>
+            <article class="quote"><h3>Mentor</h3><p class="sub">“AI-assisted rubrics made coaching sharper and more practical.”</p></article>
+            <article class="quote"><h3>Project manager</h3><p class="sub">“At-risk flags gave us early warning and better support timing.”</p></article>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <section class="section" id="contact">
+    <div class="max">
+      <div class="cta">
+        <h2>Ready to launch your next cohort?</h2>
+        <p>Choose a 4-week validation pilot or 12-week full track. Mashauri helps you configure cohorts, reporting, and mentor support for measurable outcomes.</p>
+        <div class="btn-row" style="justify-content:center;margin-top:16px;">
+          <a class="btn" style="background:#fff;color:var(--red);" href="mailto:hello@mashauri.org">Request a pilot</a>
+          <a class="btn" style="background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.45);" href="#portfolio">View student portfolio sample</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="max">© Mashauri. Built for university venture development.</div>
+  </footer>
+
+  <script>
+    const leaderBtn = document.getElementById('leaderBtn');
+    const studentBtn = document.getElementById('studentBtn');
+    const leaderView = document.getElementById('leaderView');
+    const studentView = document.getElementById('studentView');
+
+    function showView(view) {
+      const isLeader = view === 'leader';
+      leaderBtn.classList.toggle('active', isLeader);
+      studentBtn.classList.toggle('active', !isLeader);
+      leaderBtn.setAttribute('aria-selected', String(isLeader));
+      studentBtn.setAttribute('aria-selected', String(!isLeader));
+      leaderView.classList.toggle('active', isLeader);
+      studentView.classList.toggle('active', !isLeader);
+    }
+
+    leaderBtn.addEventListener('click', () => showView('leader'));
+    studentBtn.addEventListener('click', () => showView('student'));
+  </script>
+</body>
+</html>
