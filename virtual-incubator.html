@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mashauri Virtual Incubator Programmes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red:#cd1d31; --red-dark:#a8182a; --red-light:#fdf0f1; --red-mid:#f9d4d8;
+      --dark:#111827; --gray-700:#374151; --gray-500:#6b7280; --gray-200:#e5e7eb; --gray-50:#f9fafb; --white:#fff;
+      --max:1100px; --radius:14px; --shadow:0 6px 24px rgba(0,0,0,0.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;color:var(--dark);line-height:1.7;background:var(--white)}
+    a{text-decoration:none;color:inherit}
+    .max{max-width:var(--max);margin:0 auto;padding:0 2rem}
+    .nav{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--gray-200);z-index:100}
+    .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{background:var(--red);color:#fff;padding:8px 16px;border-radius:6px;font-weight:900}
+    .nav-links{display:flex;gap:18px;font-size:.92rem;color:var(--gray-700)}
+    .nav-links a:hover{color:var(--red)}
+    .hero{padding:92px 0 76px;background:linear-gradient(120deg,#1f2937 10%,#3a2130 55%,#8a1222 100%);color:#fff}
+    .eyebrow{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:6px 12px;border-radius:100px;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase}
+    h1{font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.14;margin:20px 0 14px}
+    .hero p{max-width:760px;color:rgba(255,255,255,.86)}
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .btn{display:inline-flex;padding:12px 20px;border-radius:10px;font-weight:700;font-size:.95rem}
+    .btn-red{background:var(--red);color:#fff}
+    .btn-red:hover{background:var(--red-dark)}
+    .btn-ghost{border:1px solid rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.08)}
+    section{padding:72px 0}
+    h2{font-size:clamp(1.5rem,3.2vw,2.3rem);margin-bottom:16px;line-height:1.2}
+    .sub{color:var(--gray-500)}
+    .grid-2{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start}
+    .card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+    .steps{display:grid;gap:14px}
+    .step{display:flex;gap:14px;padding:14px;border:1px solid var(--gray-200);border-radius:12px;background:var(--gray-50)}
+    .num{width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:.9rem}
+    .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    .kpi{background:var(--red-light);border:1px solid var(--red-mid);padding:16px;border-radius:12px}
+    .kpi strong{font-size:1.4rem;display:block;line-height:1.1;color:var(--red)}
+    .faq{display:grid;gap:14px}
+    .faq-item{border:1px solid var(--gray-200);border-radius:12px;padding:16px 18px;background:#fff}
+    .faq-item h3{font-size:1rem;margin-bottom:6px}
+    .cta{background:var(--red);color:#fff;text-align:center;border-radius:18px;padding:42px 22px}
+    .cta p{color:rgba(255,255,255,.88);max-width:700px;margin:10px auto 0}
+    footer{padding:34px 0 46px;color:var(--gray-500);font-size:.92rem}
+    @media (max-width:900px){.grid-2{grid-template-columns:1fr}.nav-links{display:none}.max{padding:0 1.2rem}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="max nav-inner">
+      <a class="nav-logo" href="index.html">MASHAURI</a>
+      <div class="nav-links">
+        <a href="index.html#programmes">All Programmes</a>
+        <a href="#how">How it works</a>
+        <a href="#outcomes">Outcomes</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="max">
+      <span class="eyebrow">Virtual Programme for Universities</span>
+      <h1>Mashauri Virtual Incubator Programmes</h1>
+      <p>A cohort-based online incubator that helps students move from early ideas to validated, venture-ready projects through guided modules, mentor support, AI-assisted feedback, and measurable progress tracking.</p>
+      <div class="btn-row">
+        <a class="btn btn-red" href="#contact">Talk to our team</a>
+        <a class="btn btn-ghost" href="#how">See programme flow</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="max grid-2">
+      <div>
+        <h2>What the Virtual Incubator is</h2>
+        <p class="sub">The Mashauri Virtual Incubator is designed for universities and innovation centres that want a structured way to take student founders from concept to market testing. It can run as a focused 4-week Problem–Solution Validation stream or as a 12-week Business Model Design & Validation track. Both options are built for 4–6 hours of learner effort per week, with weekly activities, practical assignments, and cohort support.</p>
+        <p class="sub" style="margin-top:12px;">Delivery happens through Mashauri’s online campus and includes webinars, mentor matching, peer learning, and weekly reporting for programme managers. Cohorts complete with a final assessment or pitch, then receive certification and short-term post-programme access to continue refining their ventures.</p>
+      </div>
+      <aside class="card" id="outcomes">
+        <h3 style="margin-bottom:10px;">Programme outcomes at a glance</h3>
+        <p class="sub">Built for measurable delivery and clear institutional reporting.</p>
+        <div class="kpis">
+          <div class="kpi"><strong>4 weeks</strong><span>Fast validation track</span></div>
+          <div class="kpi"><strong>12 weeks</strong><span>Deep venture design track</span></div>
+          <div class="kpi"><strong>4–6 hrs</strong><span>Weekly student workload</span></div>
+          <div class="kpi"><strong>Weekly</strong><span>Dashboards + leaderboards</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="how" style="background:var(--gray-50);border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);">
+    <div class="max">
+      <h2>How it works</h2>
+      <p class="sub" style="max-width:760px;margin-bottom:22px;">A six-step structure keeps student teams engaged while giving university partners clear visibility into progress and risk signals.</p>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><strong>Apply & select</strong><br/>Students apply through a short form and are selected into cohort sizes aligned to institutional goals.</div></div>
+        <div class="step"><div class="num">2</div><div><strong>Onboarding & pre-work</strong><br/>A pre-programme orientation sets expectations and captures baseline readiness.</div></div>
+        <div class="step"><div class="num">3</div><div><strong>Weekly learning modules</strong><br/>Students complete practical lessons, quizzes, and assignments with a 4–6 hour weekly commitment.</div></div>
+        <div class="step"><div class="num">4</div><div><strong>Mentor & peer support</strong><br/>Teams receive mentor guidance and join webinars, peer sessions, and curated networking moments.</div></div>
+        <div class="step"><div class="num">5</div><div><strong>AI & data-driven coaching</strong><br/>AI-supported tools help surface at-risk learners and personalise feedback for stronger outcomes.</div></div>
+        <div class="step"><div class="num">6</div><div><strong>Assessment & next steps</strong><br/>Cohorts conclude with a pitch or validated model, certification, and post-programme access to materials.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="max grid-2">
+      <div>
+        <h2>Frequently asked questions</h2>
+        <div class="faq">
+          <div class="faq-item"><h3>Who is this for?</h3><p class="sub">Universities, incubator centres, and innovation offices that want a scalable incubator experience without requiring extensive physical infrastructure.</p></div>
+          <div class="faq-item"><h3>How much internal university capacity is required?</h3><p class="sub">Most partners assign one project manager or focal point to coordinate recruitment and reporting, while Mashauri supports day-to-day programme facilitation.</p></div>
+          <div class="faq-item"><h3>How is impact tracked?</h3><p class="sub">Mashauri uses competency-based progression, weekly engagement reporting, and assessment checkpoints to monitor learner and venture development outcomes.</p></div>
+        </div>
+      </div>
+      <div class="card" id="contact">
+        <h3>Pricing & pilot structure</h3>
+        <p class="sub" style="margin-top:8px;">Pricing is scoped to cohort size, facilitation level, and required customisation. Pilot engagements can be configured as low-risk trials before full roll-out.</p>
+        <div class="cta" style="margin-top:22px;">
+          <h3 style="font-size:1.45rem;">Plan your next cohort</h3>
+          <p>Share your target student numbers, start window, and preferred delivery format. We will help you configure the best 4-week or 12-week programme path.</p>
+          <div class="btn-row" style="justify-content:center;margin-top:18px;">
+            <a class="btn" style="background:#fff;color:var(--red);" href="mailto:hello@mashauri.org">Contact Mashauri</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="max">© Mashauri. Built for university venture development.</div>
+  </footer>
+</body>
+</html>
